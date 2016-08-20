@@ -74,22 +74,24 @@ void runCardResetCheck(){
 		// Card Reset Start here
 		ResetSlot();
 		
-		if(*SCFG_EXT == 0x92A00000) {
-		*SCFG_EXT |= 0x830F0100; // NAND ACCESS
-		// SCFG_CLK
-		// 0x0180 : NTR
-		// 0x0187 : TWL
-		// 
-		// *SCFG_CLK |= 1;
-	}
-	}
 	*((vu32*)0x02111114) = (u32)0x0;
+}
 }
 
 //---------------------------------------------------------------------------------
 int main(void) {
 //---------------------------------------------------------------------------------
 
+	if(*SCFG_EXT == 0x92A00000) {
+		*SCFG_EXT |= 0x830F0100; // NAND ACCESS
+		// SCFG_CLK
+		// 0x0180 : NTR
+		// 0x0187 : TWL
+		// 
+		*SCFG_CLK |= 1;
+	}
+	
+	
 	irqInit();
 	fifoInit();
 
